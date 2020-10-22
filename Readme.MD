@@ -28,13 +28,17 @@ Litecoin: LLM66GHi6MtFePCKq8ZVqbhm5Q8n2yHcKT
 - create "TeleBot.conf" file in the application's start directory
 
 - insert config into the "TeleBot.conf" in this format:
+
 	HTTP BOT API=111111111:xxxxxxxxxxxxx-xxxxxxxxxxxxxxxx
+	
 	Admin User=YourUser
 	
 - create "TeleBot_commands.conf" file in the application's start directory
 
 - insert config into the "TeleBot.conf" in this format: ( /commandName;command )
+
 	/startFireFox;firefox
+	
 	/Calculator;calc
 	
 - Start TeleBot.exe as Admin

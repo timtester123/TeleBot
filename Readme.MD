@@ -35,11 +35,11 @@ Litecoin: LLM66GHi6MtFePCKq8ZVqbhm5Q8n2yHcKT
 	
 - create "TeleBot_commands.conf" file in the application's start directory
 
-- insert config into the "TeleBot.conf" in this format: ( /commandName;command )
+- insert config into the "TeleBot.conf" in this format: ( /commandName;command;parameter )
 
-	/startFireFox;firefox
+	/startFireFox;firefox;param
 	
-	/Calculator;calc
+	/Calculator;calc;param
 	
 - Start TeleBot.exe as Admin
 

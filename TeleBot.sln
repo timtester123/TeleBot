@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TeleBot", "TeleBot\TeleBot.vbproj", "{3BFE47C4-95E2-4308-97B4-675BE30F8D1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BFE47C4-95E2-4308-97B4-675BE30F8D1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BFE47C4-95E2-4308-97B4-675BE30F8D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BFE47C4-95E2-4308-97B4-675BE30F8D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BFE47C4-95E2-4308-97B4-675BE30F8D1D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4EEBFFD7-DA76-4981-B206-4F1F831C3FD2}
+	EndGlobalSection
+EndGlobal

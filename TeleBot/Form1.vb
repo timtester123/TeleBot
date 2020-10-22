@@ -26,7 +26,6 @@ Public Class Form1
         'Get Commands
         GET_COMMANDS()
 
-
         'Bot API, create Bot Client
         botClient = New TelegramBotClient(BOT_API)
         Dim botResult = botClient.GetMeAsync().Result
@@ -62,12 +61,25 @@ Public Class Form1
                 Else 'check if command received
                     For i As Integer = 0 To command_Names.Count - 1
                         If command_Names(i).ToLower = e.Message.Text.ToLower Then
+                            Dim errMessage As String = ""
                             'start command
-                            Process.Start(commands(i))
-                            Await botClient.SendTextMessageAsync(e.Message.Chat, "Fired command: " & command_Names(i))
-                            'write log
-                            log("Fired command: " & command_Names(i))
-                            Exit For
+                            Try
+                                Process.Start(commands(i))
+                                Await botClient.SendTextMessageAsync(e.Message.Chat, "Fired command: " & command_Names(i))
+                                'write log
+                                log("Fired command: " & command_Names(i))
+                                Exit For
+                            Catch ex As Exception
+                                errMessage = ex.Message
+                            End Try
+                            'error
+                            If errMessage <> "" Then
+                                Await botClient.SendTextMessageAsync(e.Message.Chat, "Unable to start process: " & command_Names(i) & " Error: " & errMessage)
+                                'write log
+                                log("Unable to start process: " & command_Names(i) & " Error: " & errMessage)
+                                errMessage = ""
+                            End If
+
                         End If
                     Next
                 End If

@@ -10,6 +10,7 @@ Public Class Form1
     Dim Admin As String
     Dim command_Names As New List(Of String)
     Dim commands As New List(Of String)
+    Dim params As New List(Of String)
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -64,7 +65,7 @@ Public Class Form1
                             Dim errMessage As String = ""
                             'start command
                             Try
-                                Process.Start(commands(i))
+                                Process.Start(commands(i), params(i))
                                 Await botClient.SendTextMessageAsync(e.Message.Chat, "Fired command: " & command_Names(i))
                                 'write log
                                 log("Fired command: " & command_Names(i))
@@ -146,11 +147,13 @@ Public Class Form1
         For Each line As String In lines
             line = line.Replace(vbLf, "").Replace(vbCr, "")
             Dim values As String() = line.Split(";")
-            If values.Length = 2 Then
+            If values.Length = 3 Then
                 'Name
                 command_Names.Add(values(0))
                 'command
                 commands.Add(values(1))
+                'params
+                params.Add(values(2))
                 'write Log
                 log("Command found: " & line)
             End If

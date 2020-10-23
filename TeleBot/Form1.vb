@@ -63,12 +63,16 @@ Public Class Form1
             If user = Admin Then
                 If e.Message.Text.ToLower() = "/start" Then
                     'KeyBoard
-                    Dim buttons As New List(Of KeyboardButton)
+                    Dim ReplyKeyboard As ReplyKeyboardMarkup = New ReplyKeyboardMarkup()
+                    Dim rows = New List(Of KeyboardButton())
+                    Dim cols = New List(Of KeyboardButton)
                     'commands
                     For Each command_Name As String In command_Names
-                        buttons.Add(New KeyboardButton(command_Name))
+                        cols.Add(New KeyboardButton(command_Name))
+                        rows.Add(cols.ToArray())
+                        cols = New List(Of KeyboardButton)
                     Next
-                    Dim ReplyKeyboard = New ReplyKeyboardMarkup(buttons)
+                    ReplyKeyboard.Keyboard = rows.ToArray()
                     'Send Message
                     Await botClient.SendTextMessageAsync(e.Message.Chat, "Choose:", Types.Enums.ParseMode.Default, False, False, 0, ReplyKeyboard)
                 Else 'check if command received

@@ -22,8 +22,10 @@ Partial Class Form1
     'Das Bearbeiten mit dem Code-Editor ist nicht möglich.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.ListBox = New System.Windows.Forms.ListBox()
+        Me.Timer_reconnect = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'ListBox
@@ -34,6 +36,9 @@ Partial Class Form1
         Me.ListBox.Name = "ListBox"
         Me.ListBox.Size = New System.Drawing.Size(862, 451)
         Me.ListBox.TabIndex = 0
+        '
+        'Timer_reconnect
+        '
         '
         'Form1
         '
@@ -50,4 +55,5 @@ Partial Class Form1
     End Sub
 
     Friend WithEvents ListBox As ListBox
+    Friend WithEvents Timer_reconnect As Timer
 End Class

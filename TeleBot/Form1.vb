@@ -11,7 +11,7 @@ Public Class Form1
     Dim command_Names As New List(Of String)
     Dim commands As New List(Of String)
     Dim params As New List(Of String)
-
+    Dim BOT_API As String
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Me.Text = Me.Text & " - v." & Application.ProductVersion
@@ -21,22 +21,34 @@ Public Class Form1
         conf_File = Application.StartupPath & "\TeleBot.conf"
         command_conf_File = Application.StartupPath & "\TeleBot_commands.conf"
         'HTTP BOT API
-        Dim BOT_API As String = GET_CONF("HTTP BOT API=")
+        BOT_API = GET_CONF("HTTP BOT API=")
         'Admin User
         Admin = GET_CONF("Admin User=").ToLower
         'Get Commands
         GET_COMMANDS()
 
-        'Bot API, create Bot Client
-        botClient = New TelegramBotClient(BOT_API)
-        Dim botResult = botClient.GetMeAsync().Result
+        'create Bot Client
+        start_BOT()
 
-        'botClient.OnMessage += Bot_OnMessage;
 
-        AddHandler botClient.OnMessage, AddressOf Bot_OnMessage
 
-        botClient.StartReceiving()
+    End Sub
 
+
+    Private Sub start_BOT()
+        Try
+            'Bot API, create Bot Client
+            botClient = New TelegramBotClient(BOT_API)
+            Dim botResult = botClient.GetMeAsync().Result
+            AddHandler botClient.OnMessage, AddressOf Bot_OnMessage
+            botClient.StartReceiving()
+            log("connected")
+        Catch ex As Exception
+            'write Log
+            log("Unable to connect, waiting 10 seconds for a retry.")
+            Timer_reconnect.Interval = 10000
+            Timer_reconnect.Start()
+        End Try
     End Sub
 
     Public Async Sub Bot_OnMessage(ByVal sender As Object, ByVal e As MessageEventArgs)
@@ -159,5 +171,10 @@ Public Class Form1
             End If
         Next
 
+    End Sub
+
+    Private Sub Timer_reconnect_Tick(sender As Object, e As EventArgs) Handles Timer_reconnect.Tick
+        Timer_reconnect.Stop()
+        start_BOT()
     End Sub
 End Class

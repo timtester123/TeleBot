@@ -54,57 +54,59 @@ Public Class Form1
     Public Async Sub Bot_OnMessage(ByVal sender As Object, ByVal e As MessageEventArgs)
         If e.Message.Text <> Nothing Then
 
-            Dim user As String = e.Message.From.Username.ToLower
+            'dont reply to old messages
+            If e.Message.Date > Now.AddMinutes(-1) Then
 
-            'write Log
-            log("Received message - User: " & user & " - Text: " & e.Message.Text)
-
-            'check if message from Admin
-            If user = Admin Then
-                If e.Message.Text.ToLower() = "/start" Then
-                    'KeyBoard
-                    Dim ReplyKeyboard As ReplyKeyboardMarkup = New ReplyKeyboardMarkup()
-                    Dim rows = New List(Of KeyboardButton())
-                    Dim cols = New List(Of KeyboardButton)
-                    'commands
-                    For Each command_Name As String In command_Names
-                        cols.Add(New KeyboardButton(command_Name))
-                        rows.Add(cols.ToArray())
-                        cols = New List(Of KeyboardButton)
-                    Next
-                    ReplyKeyboard.Keyboard = rows.ToArray()
-                    'Send Message
-                    Await botClient.SendTextMessageAsync(e.Message.Chat, "Choose:", Types.Enums.ParseMode.Default, False, False, 0, ReplyKeyboard)
-                Else 'check if command received
-                    For i As Integer = 0 To command_Names.Count - 1
-                        If command_Names(i).ToLower = e.Message.Text.ToLower Then
-                            Dim errMessage As String = ""
-                            'start command
-                            Try
-                                Process.Start(commands(i), params(i))
-                                Await botClient.SendTextMessageAsync(e.Message.Chat, "Fired command: " & command_Names(i))
-                                'write log
-                                log("Fired command: " & command_Names(i))
-                                Exit For
-                            Catch ex As Exception
-                                errMessage = ex.Message
-                            End Try
-                            'error
-                            If errMessage <> "" Then
-                                Await botClient.SendTextMessageAsync(e.Message.Chat, "Unable to start process: " & command_Names(i) & " Error: " & errMessage)
-                                'write log
-                                log("Unable to start process: " & command_Names(i) & " Error: " & errMessage)
-                                errMessage = ""
-                            End If
-
-                        End If
-                    Next
-                End If
-            Else
+                Dim user As String = e.Message.From.Username.ToLower
                 'write Log
-                log("No Admin, skipped message from: " & user)
-            End If
+                log("Received message - User: " & user & " - Text: " & e.Message.Text)
 
+                'check if message from Admin
+                If user = Admin Then
+                    If e.Message.Text.ToLower() = "/start" Then
+                        'KeyBoard
+                        Dim ReplyKeyboard As ReplyKeyboardMarkup = New ReplyKeyboardMarkup()
+                        Dim rows = New List(Of KeyboardButton())
+                        Dim cols = New List(Of KeyboardButton)
+                        'commands
+                        For Each command_Name As String In command_Names
+                            cols.Add(New KeyboardButton(command_Name))
+                            rows.Add(cols.ToArray())
+                            cols = New List(Of KeyboardButton)
+                        Next
+                        ReplyKeyboard.Keyboard = rows.ToArray()
+                        'Send Message
+                        Await botClient.SendTextMessageAsync(e.Message.Chat, "Choose:", Types.Enums.ParseMode.Default, False, False, 0, ReplyKeyboard)
+                    Else 'check if command received
+                        For i As Integer = 0 To command_Names.Count - 1
+                            If command_Names(i).ToLower = e.Message.Text.ToLower Then
+                                Dim errMessage As String = ""
+                                'start command
+                                Try
+                                    Process.Start(commands(i), params(i))
+                                    Await botClient.SendTextMessageAsync(e.Message.Chat, "Fired command: " & command_Names(i))
+                                    'write log
+                                    log("Fired command: " & command_Names(i))
+                                    Exit For
+                                Catch ex As Exception
+                                    errMessage = ex.Message
+                                End Try
+                                'error
+                                If errMessage <> "" Then
+                                    Await botClient.SendTextMessageAsync(e.Message.Chat, "Unable to start process: " & command_Names(i) & " Error: " & errMessage)
+                                    'write log
+                                    log("Unable to start process: " & command_Names(i) & " Error: " & errMessage)
+                                    errMessage = ""
+                                End If
+
+                            End If
+                        Next
+                    End If
+                Else
+                    'write Log
+                    log("No Admin, skipped message from: " & user)
+                End If
+            End If
         End If
     End Sub
 

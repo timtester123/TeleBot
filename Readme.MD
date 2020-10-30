@@ -8,16 +8,7 @@ Start processes on your Windows Server with Telegram
 
 
 ### Donate for coffee & beer
-Bitcoin: 1B22EWFT292WSgRBfAJdmhGiwyA3qDAfNZ
-
-Monero: 48s5nTt2i5Kcxyj7SgaKGiKdWSuijQVfr1JowgGF9T5HR6ijkqwo3BXWEcS7G2ntHXNYMyp9ZK1kaifmLTNYqtRoG1MeiSu
-
-Bitcoin Cash: qrpfrl0gwkkwg57cl3efsxrhvf8vsx4gkgwehfsmxt
-
-Etherum: 0xf3Cfde70CbE17cC6B2297530b0456dA8eBd691af
-
-Litecoin: LLM66GHi6MtFePCKq8ZVqbhm5Q8n2yHcKT
-
+[TimTester.in/donate](https://timtester.in/donate/)
 
 
 

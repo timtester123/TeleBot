@@ -55,7 +55,7 @@ Public Class Form1
         If e.Message.Text <> Nothing Then
 
             'dont reply to old messages
-            If e.Message.Date > Now.AddMinutes(-1) Then
+            If e.Message.Date.AddHours(2) > Now.AddMinutes(-1) Then
 
                 Dim user As String = e.Message.From.Username.ToLower
                 'write Log
